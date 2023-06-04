@@ -1,0 +1,18 @@
+{
+    "name": "chevli/telegram-bot",
+    "description": "Integration of third party Services to work with telegram as a chat bot.",
+    "type": "project",
+    "require": {
+        "nutgram/nutgram": "^3.20.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Chevli\\TelegramBot\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Raj Chevli"
+        }
+    ]
+}
