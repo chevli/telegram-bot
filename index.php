@@ -22,6 +22,10 @@ $reminders = new \Chevli\TelegramBot\Monica\Telegram\Reminders($chat);
 $bot->onCommand('reminders', [$reminders, 'getReminders']);
 $bot->onCommand('birthdays', [$reminders, 'getBirthdays']);
 
+$reminders = new \Chevli\TelegramBot\Monica\Telegram\Contacts($chat);
+$bot->onCommand('contacts', [$reminders, 'getContacts']);
+
+
 $chat->sendMessage("I'm ready");
 
 $bot->run();

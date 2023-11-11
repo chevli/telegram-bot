@@ -36,7 +36,7 @@ Commands available:
 ## Installation
 
 You may run `php index.php` with the necessary environment variables in place but it is recommended to use
-docker to get started.
+docker-compose to get started.
 
 ### Telegram Bot Creation
 
@@ -49,4 +49,16 @@ Add this bot to your group to the group's chat ID.
 
 ### Container
 
-todo
+```yaml
+telegram-bot:
+    image: ghcr.io/chevli/telegram-bot
+    container_name: telegram-bot
+    restart: unless-stopped
+    environment:
+      - telegram_chat_id=<TELEGRAM CHAT ID>
+      - telegram_token=<TELEGRAM TOKEN>
+      - monica_url=<your MonicaHQ URL>/api/
+      - monica_token=<your MonicaHQ token>
+      - grocy_url=<your Grocy URL>/api/
+      - grocy_api_key=<your grocy API key>
+```

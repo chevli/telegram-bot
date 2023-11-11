@@ -45,4 +45,21 @@ abstract class AbstractApi
             throw new \Exception("HTTP Issue: " . $exception->getMessage());
         }
     }
+
+    /**
+     * @param string $content
+     * @return array
+     * @throws \Exception
+     */
+    protected function parseJson(string $content) : array
+    {
+        $responseArray = json_decode($content, true);
+        if (json_last_error() == JSON_ERROR_NONE) {
+            return $responseArray;
+        }
+        if (json_last_error() == JSON_ERROR_SYNTAX) {
+            throw new \Exception("Unable to parse the JSON. Must have failed to authenticate");
+        }
+        throw new \Exception(json_last_error_msg());
+    }
 }

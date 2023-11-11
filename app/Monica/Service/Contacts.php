@@ -2,15 +2,15 @@
 
 namespace Chevli\TelegramBot\Monica\Service;
 
-class Reminders extends AbstractApi
+class Contacts extends AbstractApi
 {
-    public function getReminders($page = 1)
+    public function getContacts($params = [])
     {
-        $data = $this->getPaginatedReminders();
+        $data = $this->getPaginatedContacts($params);
         return $data;
     }
 
-    private function getPaginatedReminders($page = 1)
+    private function getPaginatedContacts($params = [], $page = 1)
     {
         $options = [
             'query' => [
@@ -18,13 +18,16 @@ class Reminders extends AbstractApi
                 'page' => $page
             ]
         ];
-        $response = $this->get("reminders", $options);
+        foreach ($params as $key => $param) {
+            $options['query'][$key] = $param;
+        }
+        $response = $this->get("contacts", $options);
         $content = $response->getBody()->getContents();
-        $responseArray = $this->parseJson($content);
+        $responseArray = json_decode($content, true);
         $data = $responseArray['data'];
         if ($responseArray['links']['next'] != null) {
             $page++;
-            $nextPageData = $this->getPaginatedReminders($page);
+            $nextPageData = $this->getPaginatedContacts($params, $page);
             $data = array_merge($data, $nextPageData);
         }
         return $data;

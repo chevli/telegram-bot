@@ -101,6 +101,7 @@ class Reminders
         $data->age = false;
         $data->newAge = false;
         $age = $currentDate->diff($birthday);
+        $data->index = 0;
 
         // Working out the age
         if (!$yearUnknown) {
@@ -120,6 +121,7 @@ class Reminders
         $data->birthdayUpcoming = false;
         if ($age->m >= 11 && $age->d >= 1) {
             $data->birthdayUpcoming = true;
+            $data->index = $age->d;
 
             // Show what age the person is becoming.
             if ($data->age) {
@@ -131,6 +133,7 @@ class Reminders
         $data->birthdayBelated = false;
         if ($age->m == 0 && $age->d < 4 && $age->d != 0) {
             $data->birthdayBelated = true;
+            $data->index = $age->d;
         }
 
         return $data;
@@ -153,5 +156,4 @@ class Reminders
             $ageText
         );
     }
-
 }

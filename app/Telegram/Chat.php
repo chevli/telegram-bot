@@ -9,6 +9,8 @@ use SergiX44\Nutgram\Telegram\Types\Keyboard\InlineKeyboardMarkup;
 
 class Chat
 {
+    const MAX_LENGTH = 4096;
+
     protected $nutgram;
     protected $chatId;
 
@@ -41,6 +43,14 @@ class Chat
             $options['reply_markup'] = $replyMarkup;
         }
 
-        $this->nutgram->sendMessage($message, $options);
+        if (strlen($message) < self::MAX_LENGTH) {
+            $this->nutgram->sendMessage($message, $options);
+            return;
+        }
+
+        $messages = str_split($message, self::MAX_LENGTH);
+        foreach ($messages as $message) {
+            $this->nutgram->sendMessage($message, $options);
+        }
     }
 }
